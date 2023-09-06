@@ -4,16 +4,13 @@ import {React, useState} from 'react'
 
 export default function Invoices() {
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
-
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function clear() {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  }
 
   function calculateWinner(squares) {
     const lines = [
@@ -54,9 +51,12 @@ export default function Invoices() {
       <Routertest />
 
       <h2>井字棋</h2>
+      <br />
+      <hr />
+      <br />
 
-
-      <div className="status">{status}</div>
+      <div className="status border w-16 p-2 mx-2">{!xIsNext ? 'x win' : 'o win'}</div>
+      <button onClick={clear} className="border p-2 rounded-xl border-red-600 m-4">清空</button>
       <div className="p-6 text-xl">
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
